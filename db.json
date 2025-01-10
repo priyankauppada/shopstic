@@ -1,0 +1,26 @@
+{
+  "addresses": [
+    {
+      "id": "227a",
+      "name": "pinky",
+      "mobile": "91007289652",
+      "flat": "Nehru Nagar",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "500055",
+      "latLong": ""
+    },
+    {
+      "id": "d1d6",
+      "name": "priyanka",
+      "mobile": "6281772209",
+      "flat": "Anjaiah Nagar",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "pincode": "500081",
+      "latLong": ""
+    }
+  ]
+}
