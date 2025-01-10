@@ -1,0 +1,194 @@
+import React, { useState } from "react";
+import logo from '../assets/logo.jpeg'
+import { FiMenu, FiX, FiHeart, FiShoppingCart, FiUser, FiSearch } from "react-icons/fi";
+import { NavLink, Link} from 'react-router-dom'
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Tracks login state
+  const [cartCount, setCartCount] = useState(0); // Tracks cart item count
+
+  const handleLogin = () => {
+    setIsLoggedIn(true); // Simulate login
+    setCartCount(3); // Simulate cart items after login
+    setIsUserMenuOpen(false); // Close user menu after login
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Simulate logout
+    setCartCount(0); // Reset cart count
+    setIsUserMenuOpen(false);
+  };
+
+  return (
+    <nav className="bg-white shadow-md">
+      <div className="container mx-auto px-4 sm:px-4 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          {/* Logo */}
+          <div className="  ">
+            <Link to="/"><img src={logo} className="md:w-36"/>
+            </Link>
+          </div>
+
+          {/* Search Bar */}
+          <div className=" flex-1 mx-4">
+            <div className="relative flex w-3/4 mx-auto hover:outline outline-2 outline-[#35ac75] rounded-md">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="relative w-full rounded-s-md py-2 px-4 text-sm text-gray-700 outline-0 border border-gray-400"
+              />
+             
+              <button className="bg-[#35ac75]  text-white rounded-r-md px-4  py-2 flex items-center justify-center">
+                <FiSearch className="size={18}" />
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop Links with Icons */}
+          <div className="hidden md:flex items-center space-x-6">
+            <a
+              href="/wishlist"
+              className="flex items-center text-gray-600 hover:text-gray-800"
+            >
+              <FiHeart className="mr-2" /> 
+            </a>
+
+            {/* Cart with Dynamic Count */}
+            <a
+              href="/cart"
+              className="relative flex items-center text-gray-600 hover:text-gray-800"
+            >
+              <FiShoppingCart className="mr-2" />
+              
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </a>
+
+            {/* User Menu */}
+            <div className="relative">
+              <button
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center text-gray-600 hover:text-gray-800 focus:outline-none"
+              >
+                <FiUser className="mr-2" /> 
+              </button>
+              {isUserMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                  {!isLoggedIn ? (
+                    <>
+                      <button
+                        onClick={handleLogin}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                      >
+                        Login
+                      </button>
+                      <a
+                        href="/signup"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        New Customer? Signup
+                      </a>
+                    </>
+                  ) : (
+                    <button
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                    >
+                      Logout
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-gray-600 focus:outline-none"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <FiX className="w-6 h-6" />
+            ) : (
+              <FiMenu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="flex flex-col space-y-4 mt-4">
+              <a
+                href="/wishlist"
+                className="flex items-center text-gray-600 hover:text-gray-800"
+              >
+                <FiHeart className="mr-2" /> Wishlist
+              </a>
+
+              {/* Cart with Dynamic Count */}
+              <a
+                href="/cart"
+                className="relative flex items-center text-gray-600 hover:text-gray-800"
+              >
+                <FiShoppingCart className="mr-2" />
+                Cart
+                {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 -mt-2 -mr-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </a>
+
+              {/* User Menu */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center text-gray-600 hover:text-gray-800 focus:outline-none"
+                >
+                  <FiUser className="mr-2" /> Account
+                </button>
+                {isUserMenuOpen && (
+                  <div className="mt-2 bg-white border rounded shadow-lg">
+                    {!isLoggedIn ? (
+                      <>
+                        <button
+                          onClick={handleLogin}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        >
+                          Login
+                        </button>
+                        <a
+                          href="/signup"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          New Customer? Signup
+                        </a>
+                      </>
+                    ) : (
+                      <button
+                        onClick={handleLogout}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
+
+api/std/address/view

@@ -1,0 +1,20 @@
+<div>
+        <h3 className="text-lg font-semibold">Filter by Ratings</h3>
+        {[5, 4, 3, 2, 1].map((rating) => (
+          <button
+            key={rating}
+            className={`flex items-center my-1 ${
+              selectedRating === rating ? "text-yellow-500" : "text-gray-500"
+            }`}
+            onClick={() => handleRatingChange(rating)}
+          >
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className={i < rating ? "text-yellow-500" : "text-gray-300"}>
+                ★
+              </span>
+            ))}
+          </button>
+        ))}
+      </div>
+
+      bg-[#35ac75]
